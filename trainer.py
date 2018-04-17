@@ -64,7 +64,7 @@ parser.add_argument('--output_dir', type=str, default='outputs')
 parser.add_argument('--epoch_start', type=int, default=0, help='Restart at epoch #')
 parser.add_argument('--load_path', type=str, default='')
 parser.add_argument('--disable_tensorboard', type=str2bool, default=False)
-parser.add_argument('--plot_attention', type=str2bool, default=False)
+parser.add_argument('--plot_attention', type=str2bool, default=True)
 parser.add_argument('--disable_progress_bar', type=str2bool, default=False)
 
 args = vars(parser.parse_args())
