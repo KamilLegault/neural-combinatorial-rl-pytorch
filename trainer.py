@@ -107,7 +107,7 @@ elif COP == 'tsp':
         data_dir=data_dir)
     training_dataset = tsp_task.TSPDataset(train=True, size=size,
          num_samples=int(args['train_size']))
-    val_dataset = tsp_task.TSPDataset(train=True, size=size,
+    val_dataset = tsp_task.TSPDataset(train=False, size=size,
             num_samples=int(args['val_size']))
 else:
     print('Currently unsupported task!')
@@ -199,7 +199,7 @@ for i in range(epoch, epoch + int(args['n_epochs'])):
         model.train()
 
         # sample_batch is [batch_size x input_dim x sourceL]
-        for batch_id, sample_batch in enumerate(tqdm(training_dataloader,
+        for batch_id, (sample_batch, _ ) in enumerate(tqdm(training_dataloader,
                 disable=args['disable_progress_bar'])):
 
 
@@ -294,7 +294,7 @@ for i in range(epoch, epoch + int(args['n_epochs'])):
     # put in test mode!
     model.eval()
 
-    for batch_id, val_batch in enumerate(tqdm(validation_dataloader,
+    for batch_id, (val_batch, correct) in enumerate(tqdm(validation_dataloader,
             disable=args['disable_progress_bar'])):
         bat = Variable(val_batch)
 

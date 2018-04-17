@@ -219,7 +219,7 @@ class TSPDataset(Dataset):
         #start = torch.FloatTensor([[-1], [-1]]) 
         
         torch.manual_seed(random_seed)
-
+        self.y = []
         self.data_set = []
         if not train:
             with open(dataset_fname, 'r') as dset:
@@ -227,7 +227,7 @@ class TSPDataset(Dataset):
                     inputs, outputs = l.split(' output ')
                     sample = torch.zeros(1, )
                     x = np.array(inputs.split(), dtype=np.float32).reshape([-1, 2]).T
-                    #y.append(np.array(outputs.split(), dtype=np.int32)[:-1]) # skip the last one
+                    self.y.append(np.array(outputs.split(), dtype=np.int32)[:-1]) # skip the last one
                     self.data_set.append(x)
         else:
             # randomly sample points uniformly from [0, 1]
@@ -242,7 +242,7 @@ class TSPDataset(Dataset):
         return self.size
 
     def __getitem__(self, idx):
-        return self.data_set[idx]
+        return self.data_set[idx], self
     
 if __name__ == '__main__':
     paths = download_google_drive_file('data/tsp', 'tsp', '', '50')
