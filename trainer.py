@@ -107,7 +107,7 @@ elif COP == 'tsp':
         data_dir=data_dir)
     training_dataset = tsp_task.TSPDataset(train=True, size=size,
          num_samples=int(args['train_size']))
-    val_dataset = tsp_task.TSPDataset(train=False, size=size,
+    val_dataset = tsp_task.TSPDataset(dataset_fname="data/tsp/tsp5_test.txt",train=False, size=size,
             num_samples=int(args['val_size']))
 else:
     print('Currently unsupported task!')
