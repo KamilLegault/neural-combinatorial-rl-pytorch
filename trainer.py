@@ -64,7 +64,7 @@ parser.add_argument('--output_dir', type=str, default='outputs')
 parser.add_argument('--epoch_start', type=int, default=0, help='Restart at epoch #')
 parser.add_argument('--load_path', type=str, default='')
 parser.add_argument('--disable_tensorboard', type=str2bool, default=False)
-parser.add_argument('--plot_attention', type=str2bool, default=True)
+parser.add_argument('--plot_attention', type=str2bool, default=False)
 parser.add_argument('--disable_progress_bar', type=str2bool, default=False)
 
 args = vars(parser.parse_args())
@@ -87,7 +87,7 @@ data_dir = 'data/' + COP
 
 if COP == 'sort':
     import sorting_task
-    
+    print("SORTING TASK") 
     input_dim = 1
     reward_fn = sorting_task.reward
     train_fname, val_fname = sorting_task.create_dataset(
@@ -99,7 +99,7 @@ if COP == 'sort':
     val_dataset = sorting_task.SortingDataset(val_fname)
 elif COP == 'tsp':
     import tsp_task
-
+    print("Tsp Task")
     input_dim = 2
     reward_fn = tsp_task.reward
     val_fname = tsp_task.create_dataset(
@@ -124,9 +124,14 @@ if args['load_path'] != '':
         ))
     if(model):
         print('Model Loaded')
+    else:
+        print("Model Not Loaded")
     model.actor_net.decoder.max_length = size
     model.is_train = args['is_train']
 else:
+    if(args['is_train']==False):
+        print('ERROR!!!!!')
+        print(args['load_path'])
     # Instantiate the Neural Combinatorial Opt with RL module
     model = NeuralCombOptRL(
         input_dim,
@@ -314,7 +319,7 @@ for i in range(epoch, epoch + int(args['n_epochs'])):
                     example_output.append(action[0].data[0])
                 example_input.append(bat[0, :, idx].data[0])
             print('Step: {}'.format(batch_id))
-            #print('Example test input: {}'.format(example_input))
+            print('Example test input: {}'.format(example_input))
             print('Example test output: {}'.format(example_output))
             print('Example test reward: {}'.format(R[0].data[0]))
     

@@ -20,4 +20,4 @@ def plot_attention(in_seq, out_seq, attentions):
     ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
     ax.yaxis.set_major_locator(ticker.MultipleLocator(1))
 
-    plt.show()
+    plt.savefig("foo.png")
