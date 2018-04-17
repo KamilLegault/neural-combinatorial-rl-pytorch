@@ -122,6 +122,8 @@ if args['load_path'] != '':
             os.getcwd(),
             args['load_path']
         ))
+    if(model):
+        print('Model Loaded')
     model.actor_net.decoder.max_length = size
     model.is_train = args['is_train']
 else:
